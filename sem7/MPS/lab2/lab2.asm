@@ -64,7 +64,7 @@ INIT:
 	MOV		a,#28h			 
 	CALL	WRITE_COMMAND
 
-  MOV		a,#0Eh			
+  MOV		a,#0Ch			
 	CALL	WRITE_COMMAND
 
 	MOV		a,#06h			
@@ -123,11 +123,9 @@ m2:	clr a
 	call WRITE_DATA
 	djnz r7,m2		
 	
-    text1: db 'KUTUZOV' 
-    org 8100h
-
+    text1: db 'KUTUZOF' 
     text2: db 'POZDNYAKOV' 
-    org 8200h
+    
 		
 m1:
 	JMP m1
