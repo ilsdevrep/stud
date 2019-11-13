@@ -1,0 +1,181 @@
+A51 MACRO ASSEMBLER  MPS2GOTOV                                                            11/12/2019 19:33:43 PAGE     1
+
+
+MACRO ASSEMBLER A51 V6.00f
+OBJECT MODULE PLACED IN .\mps2gotov.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE .\mps2gotov.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  0090                 1     E EQU   p1.0
+----                   2     CSEG AT 8000h
+8000 017E              3     JMP START
+                       4     
+8002                   5     WRITE_COMMAND:
+8002 1163              6             CALL    WAIT_BF
+8004 C0E0              7             PUSH    acc
+8006 C0F0              8             PUSH    b
+                       9     
+8008 F5F0             10             MOV             b,a
+800A 54F0             11             ANL             a,#11110000b
+800C F590             12             MOV             p1,a
+                      13             
+800E D290             14             SETB    E
+8010 00               15             NOP
+8011 C290             16             CLR             E
+                      17     
+8013 E5F0             18             MOV             a,b
+8015 C4               19             SWAP    a
+8016 54F0             20             ANL             a,#11110000b
+8018 F590             21             MOV             p1,a
+                      22             
+801A D290             23             SETB    E
+801C 00               24             NOP
+801D C290             25             CLR             E
+                      26     
+801F 7590F0           27             MOV             p1,#11110000b
+8022 D0F0             28             POP             b
+8024 D0E0             29             POP             acc
+8026 22               30     RET
+                      31     
+8027                  32     WRITE_DATA:
+8027 C0E0             33             PUSH    acc
+8029 C0F0             34             PUSH    b
+802B 1163             35             CALL    WAIT_BF
+                      36             
+802D F5F0             37             MOV             b,a
+802F 54F0             38             ANL             a,#11110000b
+8031 4402             39             ORL             a,#00000010b
+8033 F590             40             MOV             p1,a
+                      41     
+8035 D290             42             SETB              E
+8037 00               43             NOP
+8038 C290             44             CLR             E
+                      45             
+803A E5F0             46             MOV             a,b
+803C C4               47             SWAP              a
+803D 54F0             48             ANL             a,#11110000b
+803F 4402             49             ORL             a,#00000010b
+8041 F590             50             MOV             p1,a
+                      51     
+8043 D290             52             SETB              E
+8045 00               53             NOP
+8046 C290             54             CLR             E
+                      55     
+8048 7590F0           56             MOV             p1,#11110000b
+804B D0F0             57             POP             b
+804D D0E0             58             POP             acc
+A51 MACRO ASSEMBLER  MPS2GOTOV                                                            11/12/2019 19:33:43 PAGE     2
+
+804F 22               59     RET
+                      60     
+8050                  61       INIT:                                 
+8050 C290             62             CLR             E
+                      63     
+8052 7428             64             MOV             a,#28h                   
+8054 1102             65             CALL    WRITE_COMMAND
+                      66     
+8056 740E             67               MOV           a,#0Eh                  
+8058 1102             68             CALL    WRITE_COMMAND
+                      69     
+805A 7406             70             MOV             a,#06h                  
+805C 1102             71             CALL    WRITE_COMMAND
+                      72     
+805E 7401             73             MOV             a,#01h                  
+8060 1102             74             CALL    WRITE_COMMAND
+                      75     
+8062 22               76     RET
+                      77     
+                      78     ;------------------------------------------------------------------------------------------
+                             ------
+                      79     
+8063                  80     WAIT_BF:
+8063 C0E0             81             PUSH    acc
+8065                  82     WAIT_LL:
+8065 7590F4           83             MOV             p1,#11110100b
+8068 D290             84             SETB    E
+806A E590             85             MOV             a,p1
+806C C290             86             CLR             E
+806E F5F0             87             MOV             b,a
+8070 D290             88             SETB    E
+8072 E590             89             MOV             a,p1
+8074 C290             90             CLR             E
+8076 E5F0             91             MOV             a,b
+8078 20E7EA           92             JB              acc.7,wait_ll
+807B D0E0             93             POP             acc
+807D 22               94     RET
+                      95     
+                      96     ;------------------------------------------------------------------------------------------
+                             ------
+                      97     
+807E                  98     START:
+807E 1150             99             CALL    INIT
+                     100     
+8080 C0E0            101             PUSH    acc
+8082 C0F0            102             PUSH    b
+                     103                     
+8084 7F07            104             MOV R7, #07H;
+8086 9080A0          105             MOV DPTR, #text1;
+8089                 106             MET1:
+8089 E4              107             clr a
+808A 93              108             movc a,@a+dptr
+808B A3              109             inc dptr 
+808C 1127            110             call WRITE_DATA
+808E DFF9            111             djnz r7,MET1
+                     112             
+                     113     
+8090 74C0            114     mov  a,#0c0h                            
+8092 1102            115     call write_command
+                     116     
+8094 7F09            117     mov r7,#09H
+8096 908100          118     mov dptr,#text2
+                     119     
+8099 E4              120     m2:     clr a
+809A 93              121             movc a,@a+dptr
+809B A3              122             inc dptr 
+A51 MACRO ASSEMBLER  MPS2GOTOV                                                            11/12/2019 19:33:43 PAGE     3
+
+809C 1127            123             call WRITE_DATA
+809E DFF9            124             djnz r7,m2              
+                     125             
+80A0 4D594147        126         text1: db 'MYAGKOV' 
+80A4 4B4F56                  
+8100                 127         org 8100h
+                     128     
+8100 4E45434C        129         text2: db 'NECLUDOVA' 
+8104 55444F56                
+8108 41                      
+8200                 130         org 8200h
+                     131     
+8200                 132     m1:
+8200 80FE            133             JMP m1
+                     134     end
+A51 MACRO ASSEMBLER  MPS2GOTOV                                                            11/12/2019 19:33:43 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+E. . . . . . . . .  B ADDR   0090H.0 A   
+INIT . . . . . . .  C ADDR   8050H   A   
+M1 . . . . . . . .  C ADDR   8200H   A   
+M2 . . . . . . . .  C ADDR   8099H   A   
+MET1 . . . . . . .  C ADDR   8089H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   807EH   A   
+TEXT1. . . . . . .  C ADDR   80A0H   A   
+TEXT2. . . . . . .  C ADDR   8100H   A   
+WAIT_BF. . . . . .  C ADDR   8063H   A   
+WAIT_LL. . . . . .  C ADDR   8065H   A   
+WRITE_COMMAND. . .  C ADDR   8002H   A   
+WRITE_DATA . . . .  C ADDR   8027H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

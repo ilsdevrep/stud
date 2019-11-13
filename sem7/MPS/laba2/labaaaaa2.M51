@@ -1,0 +1,146 @@
+BL51 BANKED LINKER/LOCATER V4.00d                                                       11/12/2019  19:33:44  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V4.00d, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE mps2gotov.obj TO labaaaaa2 RAMSIZE (256) CODE (0X0000) XDATA (0X0000)
+
+
+INPUT MODULES INCLUDED:
+  mps2gotov.obj (MPS2GOTOV)
+
+
+LINK MAP OF MODULE:  labaaaaa2 (MPS2GOTOV)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+                    0000H     8000H                  *** GAP ***
+            CODE    8000H     0202H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  labaaaaa2 (MPS2GOTOV)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MPS2GOTOV
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  B:0090H.0       SYMBOL        E
+  C:8050H         SYMBOL        INIT
+  C:8200H         SYMBOL        M1
+  C:8099H         SYMBOL        M2
+  C:8089H         SYMBOL        MET1
+  D:0090H         SYMBOL        P1
+  C:807EH         SYMBOL        START
+  C:80A0H         SYMBOL        TEXT1
+  C:8100H         SYMBOL        TEXT2
+  C:8063H         SYMBOL        WAIT_BF
+  C:8065H         SYMBOL        WAIT_LL
+  C:8002H         SYMBOL        WRITE_COMMAND
+  C:8027H         SYMBOL        WRITE_DATA
+  C:8000H         LINE#         3
+  C:8002H         LINE#         6
+  C:8004H         LINE#         7
+  C:8006H         LINE#         8
+  C:8008H         LINE#         10
+  C:800AH         LINE#         11
+  C:800CH         LINE#         12
+  C:800EH         LINE#         14
+  C:8010H         LINE#         15
+  C:8011H         LINE#         16
+  C:8013H         LINE#         18
+  C:8015H         LINE#         19
+  C:8016H         LINE#         20
+  C:8018H         LINE#         21
+BL51 BANKED LINKER/LOCATER V4.00d                                                     11/12/2019  19:33:44  PAGE 2
+
+
+  C:801AH         LINE#         23
+  C:801CH         LINE#         24
+  C:801DH         LINE#         25
+  C:801FH         LINE#         27
+  C:8022H         LINE#         28
+  C:8024H         LINE#         29
+  C:8026H         LINE#         30
+  C:8027H         LINE#         33
+  C:8029H         LINE#         34
+  C:802BH         LINE#         35
+  C:802DH         LINE#         37
+  C:802FH         LINE#         38
+  C:8031H         LINE#         39
+  C:8033H         LINE#         40
+  C:8035H         LINE#         42
+  C:8037H         LINE#         43
+  C:8038H         LINE#         44
+  C:803AH         LINE#         46
+  C:803CH         LINE#         47
+  C:803DH         LINE#         48
+  C:803FH         LINE#         49
+  C:8041H         LINE#         50
+  C:8043H         LINE#         52
+  C:8045H         LINE#         53
+  C:8046H         LINE#         54
+  C:8048H         LINE#         56
+  C:804BH         LINE#         57
+  C:804DH         LINE#         58
+  C:804FH         LINE#         59
+  C:8050H         LINE#         62
+  C:8052H         LINE#         64
+  C:8054H         LINE#         65
+  C:8056H         LINE#         67
+  C:8058H         LINE#         68
+  C:805AH         LINE#         70
+  C:805CH         LINE#         71
+  C:805EH         LINE#         73
+  C:8060H         LINE#         74
+  C:8062H         LINE#         76
+  C:8063H         LINE#         81
+  C:8065H         LINE#         83
+  C:8068H         LINE#         84
+  C:806AH         LINE#         85
+  C:806CH         LINE#         86
+  C:806EH         LINE#         87
+  C:8070H         LINE#         88
+  C:8072H         LINE#         89
+  C:8074H         LINE#         90
+  C:8076H         LINE#         91
+  C:8078H         LINE#         92
+  C:807BH         LINE#         93
+  C:807DH         LINE#         94
+  C:807EH         LINE#         99
+  C:8080H         LINE#         101
+  C:8082H         LINE#         102
+  C:8084H         LINE#         104
+  C:8086H         LINE#         105
+BL51 BANKED LINKER/LOCATER V4.00d                                                     11/12/2019  19:33:44  PAGE 3
+
+
+  C:8089H         LINE#         107
+  C:808AH         LINE#         108
+  C:808BH         LINE#         109
+  C:808CH         LINE#         110
+  C:808EH         LINE#         111
+  C:8090H         LINE#         114
+  C:8092H         LINE#         115
+  C:8094H         LINE#         117
+  C:8096H         LINE#         118
+  C:8099H         LINE#         120
+  C:809AH         LINE#         121
+  C:809BH         LINE#         122
+  C:809CH         LINE#         123
+  C:809EH         LINE#         124
+  C:8200H         LINE#         133
+  -------         ENDMOD        MPS2GOTOV
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00B2H BYTE ( 8%) *
+******************************************************************************
+
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

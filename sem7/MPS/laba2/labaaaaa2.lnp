@@ -1,0 +1,5 @@
+"mps2gotov.obj" 
+TO "labaaaaa2" 
+RAMSIZE(256) 
+CODE( 0x0000 )
+XDATA( 0x0000 )
