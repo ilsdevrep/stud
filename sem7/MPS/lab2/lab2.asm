@@ -1,172 +1,134 @@
-;lcd - 9600 bod
-;start ext adr8000h 
-;load reset 
-; 
-; 
+E EQU 	p1.0
+CSEG AT 8000h
+JMP START
 
-cseg at 8000h 
-	jmp start 
-org 8040h 
+WRITE_COMMAND:
+	CALL	WAIT_BF
+	PUSH	acc
+	PUSH	b
 
-start: 
-	call lcdini 
-	call datav 
-aa: 
-	nop 
-	jmp aa 
+	MOV		b,a
+	ANL		a,#11110000b
+	MOV		p1,a
+	
+	SETB	E
+	NOP
+	CLR		E
 
-datav: 
-	push acc 
-	push b 
+	MOV		a,b
+	SWAP	a
+	ANL		a,#11110000b
+	MOV		p1,a
+	
+	SETB	E
+	NOP
+	CLR		E
 
-	mov a,#10000000b ; перенос на 1ую строку 
-	call write_command 
+	MOV		p1,#11110000b
+	POP		b
+	POP		acc
+RET
 
-	mov a,08ah;К 
-	call write_data 
+WRITE_DATA:
+	PUSH	acc
+	PUSH	b
+	CALL	WAIT_BF
+	
+	MOV		b,a
+	ANL		a,#11110000b
+	ORL		a,#00000010b
+	MOV		p1,a
 
-	mov a,0e3h;у 
-	call write_data 
+	SETB	E
+	NOP
+	CLR 	E
+	
+	MOV		a,b
+	SWAP	          a
+	ANL		a,#11110000b
+	ORL		a,#00000010b
+	MOV		p1,a
 
-	mov a,0e2h;т 
-	call write_data 
+	SETB	E
+	NOP
+	CLR		E
 
-	mov a,0e3h;у 
-	call write_data 
+	MOV		p1,#11110000b
+	POP		b
+	POP		acc
+RET
 
-	mov a,0a7h;з 
-	call write_data 
+INIT:					
+	CLR		E
 
-	mov a,0aeh;о 
-	call write_data 
+	MOV		a,#28h			 
+	CALL	WRITE_COMMAND
 
-	mov a,0a2h;в 
-	call write_data 
+  MOV		a,#0Eh			
+	CALL	WRITE_COMMAND
 
+	MOV		a,#06h			
+	CALL	WRITE_COMMAND
 
-	mov a,#11000000b ; переносна 2ую строку 
-	call write_command 
+	MOV		a,#01h			
+	CALL	WRITE_COMMAND
 
+RET
 
-	mov a,08fh;П 
-	call write_data
+;--
 
-	mov a,0aeh;о 
-	call write_data
+WAIT_BF:
+	PUSH	acc
+WAIT_LL:
+   	MOV		p1,#11110100b
+   	SETB	E
+   	MOV		a,p1
+   	CLR		E
+   	MOV		b,a
+   	SETB	E
+   	MOV		a,p1
+   	CLR		E
+   	MOV		a,b
+   	JB		acc.7,wait_ll
+   	POP		acc
+RET
 
-	mov a,0a7h;з 
-	call write_data
+;--
 
-	mov a,0a4h;д 
-	call write_data
+START:
+	CALL	INIT
 
-	mov a,0adh;н 
-	call write_data
+	PUSH	acc
+	PUSH	b
+		
+	MOV R7, #07H;
+	MOV DPTR, #text1;
+	MET1:
+	clr a
+	movc a,@a+dptr
+	inc dptr 
+	call WRITE_DATA
+	djnz r7,MET1
+	
 
-	mov a,0efh;я 
-	call write_data
+	mov  a,#0c0h				
+	call write_command
 
-	mov a,0aah;к 
-	call write_data
+	mov r7,#0aH
+	mov dptr,#text2
 
-	mov a,0aeh;о 
-	call write_data
+m2:	clr a
+	movc a, @a+dptr
+	inc dptr 
+	call WRITE_DATA
+	djnz r7,m2		
+	
+    text1: db 'KUTUZOV' 
+    org 8100h
 
-	mov a,0a2h;в 
-	call write_data
-
-
-	pop b 
-	pop acc 
-	ret 
-
-lcdini: 
-	mov a,#00101000b ; 4 бита, 2 строки, 5х8 точек 
-	call write_command 
-	mov a,#00001101b ; отображение символов, курсор - мерцающее знакоместо 
-	call write_command 
-	mov a,#00000110b ; сдвигвправо 
-	call write_command 
-	mov a,#00000001b ; очисткаэкрана 
-	call write_command 
-
-	clr p1.1 
-	ret 
-
-wait_bf: ; проверка бита занятости 
-	push acc 
-
-wait_ll: 
-	mov p1,#11110100b ; C/D=0, R/W=1,E=0 
-	setb p1.0 ; E=1 
-	mov a,p1 ; чтение старшей тетрады регистра IR 
-	clr p1.0 ; E=0 
-	mov b,a ; временное хранение старшей тетрады 
-	setb p1.0 
-	mov a,p1 ; чтение младшей тетрады 
-	clr p1.0 
-	mov a,b 
-	jb acc.7,wait_ll ; проверка бита занятости BF 
-	pop acc 
-ret 
-
-write_command: 
-	push acc 
-	push b 
-
-	call wait_bf 
-
-	mov b,a ; сохраняем код команды в B 
-	anl a,#11110000b ; C/D=0,R/W=0,E=0 
-
-	mov p1,a ; вывод старшей тетрады 
-	setb p1.0 ; E=1 
-	nop 
-	clr p1.0 ; ?=0 
-
-mov a,b ; исходная команда 
-	swap a ; меняем местами тетрады 
-	anl a,#11110000b ; C/D=0,R/W=0,E=0 
-
-	mov p1,a ; вывод младшей тетрады 
-	setb p1.0 ; E=1 
-	nop 
-	clr p1.0 ; E=0 
-
-	mov p1, #11110000b 
-
-	pop b 
-	pop acc 
-	ret 
-
-write_data: 
-	push acc 
-	push b 
-
-	call wait_bf 
-
-	mov b,a ; сохраняем данные в B 
-	anl a,#11110000b ; C/D=0,R/W=0,E=0 
-	orl a,#00000010b ; C/D=1 
-
-	mov p1,a ; старшая тетрада данных 
-	setb p1.0 ; E=1 
-	nop 
-	clr p1.0 ; E=0 
-
-	mov a,b ; исходные данные 
-	swap a ; меняем местами тетрады 
-	anl a,#11110000b ; C/D=0,R/W=0,E=0 
-	orl a,#00000010b ; C/D=1 
-
-	mov p1,a ; выводмладшейтетрады 
-	setb p1.0 ; E=1 
-	nop 
-	clr p1.0 ; E=0 
-
-	mov p1, #11110000b ; высокий уровень 
-
-	pop b 
-	pop acc 
-	ret 
+    text2: db 'POZDNYAKOV' 
+    org 8200h
+		
+m1:
+	JMP m1
 end
