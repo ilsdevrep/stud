@@ -63,28 +63,44 @@ end;
 
  procedure mov(hWnd: THandle; num: integer);
    var
-      buffer: array[0..255] of char;
+      buffer: array[0..5] of char;
+      str_empty,str_error:string;
  begin
+      str_empty:='Значение не задано в поле ';
+      str_error:='Неверное число в поле ';
     GetWindowText(GetDlgItem(hwnd,num),@buffer,5);
-                    if integer(@buffer)<>0 then
-                      if ((StrToInt(buffer)>255) or (StrToInt(buffer)<0)) then
-                          MessageBox(0,'Неверное число', '', mb_OK)
+                    if (buffer)<>'' then
+                      if ((StrToInt(buffer)>255) or (StrToInt(buffer)<0) ) then
+                      begin
+                           MessageBox(0,PChar(str_error+inttostr(num)), '', mb_OK);
+                           if((StrToInt(buffer)>255)) then begin
+                             SetScrollPos(GetDlgItem(hwnd,num+3),sb_ctl,255,true);
+                             SetWindowText(GetDlgItem(hwnd,num),'255');
+                           end
+                           else begin
+                             SetScrollPos(GetDlgItem(hwnd,num+3),sb_ctl,0,true);
+                             SetWindowText(GetDlgItem(hwnd,num),'0');
+                           end
+                      end
                           else
                           SetScrollPos(GetDlgItem(hwnd,num+3),sb_ctl,StrToInt(buffer),true)
-                      else
-                      MessageBox(0,'Значение не задано', '', mb_OK);
+                      else begin
+                           MessageBox(0,PChar(str_empty+inttostr(num)), '', mb_OK);
+                           SetScrollPos(GetDlgItem(hwnd,num+3),sb_ctl,0,true);
+                           SetWindowText(GetDlgItem(hwnd,num),'0');
+                      end;
  end;
 
 function WndProc(hWnd: THandle; Msg: integer; wParam: longint; lParam: longint): longint; stdcall;
   const
-      Edit1=1; Edit2=2; Edit3=3;
+      Edit1 = 1; Edit2 = 2; Edit3 = 3;
       ScrollBar1 = 4; ScrollBar2 = 5; ScrollBar3 = 6;
 
       BtnExecute=10;
 
-  var i,j:integer;
+  var //i,j:integer;
       rect:TRect;
-      buffer: array[0..255] of char;
+//      buffer: array[0..255] of char;
       ps:TPaintStruct;
       hBrush,hOldBrush,hdc:THandle;
 begin
@@ -95,9 +111,9 @@ begin
         inc(CreationCounter);
         GetClientRect(hwnd,rect); //размеры клиентской области
       ///
-        CreateWindowEx(WS_EX_CLIENTEDGE, // Утопленная рамка
+        CreateWindowEx(WS_EX_OVERLAPPEDWINDOW , // Утопленная рамка
                    'edit',
-                   '',// пустой текст в поле ввода
+                   '0',// пустой текст в поле ввода
                    ws_visible or ws_child or ws_border or ws_tabstop,//Группа закончена, отсюда начинается следующая
                    10,10,50,20,
                    hwnd,
@@ -107,7 +123,7 @@ begin
 
         CreateWindowEx(WS_EX_CLIENTEDGE, // Утопленная рамка
                    'edit',
-                   '',// пустой текст в поле ввода
+                   '0',// пустой текст в поле ввода
                    ws_visible or ws_child or ws_border or ws_tabstop, //Группа закончена, отсюда начинается следующая
                    10,40,50,20,
                    hwnd,
@@ -116,7 +132,7 @@ begin
                    nil);
         CreateWindowEx(WS_EX_CLIENTEDGE, // Утопленная рамка
                    'edit',
-                   '',// пустой текст в поле ввода
+                   '0',// пустой текст в поле ввода
                    ws_visible or ws_child or ws_border or ws_tabstop ,//Группа закончена, отсюда начинается следующая
                    10,70,50,20,
                    hwnd,
@@ -125,9 +141,8 @@ begin
                    nil);
         CreateWindow('scrollbar',
                    nil,
-                   ws_visible or ws_child or bs_groupbox or
-                   ws_tabstop,
-                   10,100,20,255,
+                   ws_visible or ws_child or sbs_horz,
+                   130,10,255,20,
                    hwnd,
                    ScrollBar1,
                    hInstance,
@@ -135,9 +150,8 @@ begin
         SetScrollRange(GetDlgItem(hwnd,ScrollBar1),sb_ctl,0,255,true);
         CreateWindow('scrollbar',
                    nil,
-                   ws_visible or ws_child or bs_groupbox or
-                   ws_tabstop,
-                   50,100,20,255,
+                   ws_visible or ws_child or sbs_horz,
+                   130,40,255,20,
                    hwnd,
                    ScrollBar2,
                    hInstance,
@@ -145,9 +159,8 @@ begin
         SetScrollRange(GetDlgItem(hwnd,ScrollBar2),sb_ctl,0,255,true);
         CreateWindow('scrollbar',
                    nil,
-                   ws_visible or ws_child or bs_groupbox or
-                   ws_tabstop,
-                   100,100,20,255,
+                   ws_visible or ws_child or sbs_horz,
+                   130,70,255,20,
                    hwnd,
                    ScrollBar3,
                    hInstance,
@@ -156,7 +169,7 @@ begin
 
         CreateWindow('static',
                    'Red',//текст в поле ввода
-                   ws_visible or ws_child or ws_tabstop,
+                   ws_visible or ws_child,
                    70,10,50,20,
                    hwnd,
                    ScrollBar3,
@@ -164,7 +177,7 @@ begin
                    nil);
         CreateWindow('static',
                    'Green',
-                   ws_visible or ws_child  or ws_tabstop,
+                   ws_visible or ws_child,
                    70,40,50,20,
                    hwnd,
                    50,
@@ -172,16 +185,16 @@ begin
                    nil);
         CreateWindow('static',
                    'Blue',
-                   ws_visible or ws_child  or ws_tabstop,
+                   ws_visible or ws_child,
                    70,70,50,20,
                    hwnd,
                    50,
                    hInstance,
                    nil);
         CreateWindow('button',
-                   'Выполнить',
+                   'Set Color',
                    ws_visible or ws_child or bs_defpushbutton or ws_tabstop,
-                   150,10,100,20,
+                   10,100,110,20,
                    hwnd,
                    BtnExecute,
                    hInstance,
@@ -204,7 +217,6 @@ begin
                 InvalidateRect(hwnd,nil,true);
              end;
           end;
-
       end;
 
     wm_destroy:
@@ -216,7 +228,13 @@ begin
      begin
       hdc:=BeginPaint(hwnd,ps);
       GetClientRect(hwnd,rect);
-      hBrush:=CreateSolidBrush(rgb(GetScrollPos(GetDlgItem(hwnd,ScrollBar1),SB_CTL),GetScrollPos(GetDlgItem(hwnd,ScrollBar2),SB_CTL),GetScrollPos(GetDlgItem(hwnd,ScrollBar3),SB_CTL)));
+      hBrush:=CreateSolidBrush(
+                               rgb(
+                                   GetScrollPos(GetDlgItem(hwnd,ScrollBar1),SB_CTL)
+                                   , GetScrollPos(GetDlgItem(hwnd,ScrollBar2),SB_CTL)
+                                   , GetScrollPos(GetDlgItem(hwnd,ScrollBar3),SB_CTL)
+                               )
+      );
       hOldBrush:=SelectObject(hdc,hBrush);
       GetClientRect(hwnd,rect);
       FillRect(hdc,rect,hBrush);
