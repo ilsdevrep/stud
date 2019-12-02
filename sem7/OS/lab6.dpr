@@ -215,6 +215,7 @@ begin
                 mov(hwnd,Edit2);
                 mov(hwnd,Edit3);
                 InvalidateRect(hwnd,nil,true);
+                SendMessage(hwnd, wm_setfocus,GetDlgItem(hwnd,Edit2),0)
              end;
           end;
       end;
