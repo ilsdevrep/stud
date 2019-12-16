@@ -1,10 +1,10 @@
 program lab7; 
   
- uses windows, messages, sysutils; {интерфейсы к системным DLL} 
+ uses windows, messages, sysutils; {РёРЅС‚РµСЂС„РµР№СЃС‹ Рє СЃРёСЃС‚РµРјРЅС‹Рј DLL} 
   
- {$R lab7.res} // Подключается файл ресурсов 
+ {$R lab7.res} // РџРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ С„Р°Р№Р» СЂРµСЃСѓСЂСЃРѕРІ 
   
- var dyn:function(a,b:PChar): Integer; pascal; //Переменная для динамической загрузки 
+ var dyn:function(a,b:PChar): Integer; pascal; //РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ Р·Р°РіСЂСѓР·РєРё 
  hLib7:hModule; 
  hwnd1,hwnd2,DC:THandle; 
  var R,G,B:byte; 
@@ -86,8 +86,8 @@ program lab7;
          hLib7:=loadLibrary('lib7.dll'); 
          @dyn:=GetProcAddress(hLib7,pointer(2)); 
        end; 
-     wm_command: // Обработка команд от всех органов управления 
-       if hiword(wparam)=0 then begin //В сообщениях меню нулевой код уведомления 
+     wm_command: // РћР±СЂР°Р±РѕС‚РєР° РєРѕРјР°РЅРґ РѕС‚ РІСЃРµС… РѕСЂРіР°РЅРѕРІ СѓРїСЂР°РІР»РµРЅРёСЏ 
+       if hiword(wparam)=0 then begin //Р’ СЃРѕРѕР±С‰РµРЅРёСЏС… РјРµРЅСЋ РЅСѓР»РµРІРѕР№ РєРѕРґ СѓРІРµРґРѕРјР»РµРЅРёСЏ 
          case loword(wparam) of 
            40001: DialogBox(hLib7,'DIA',hwnd,@dlgproc); 
            40002: sendmessage(hwnd,wm_close,0,0); 
@@ -104,7 +104,7 @@ program lab7;
  	EndPaint(hWnd,Ps); 
      end; 
      wm_close: 
-       begin // Органы управления уничтожаются автоматически 
+       begin // РћСЂРіР°РЅС‹ СѓРїСЂР°РІР»РµРЅРёСЏ СѓРЅРёС‡С‚РѕР¶Р°СЋС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё 
          FreeLibrary(hLib7); 
          PostQuitMessage(0); 
        end; 
@@ -113,7 +113,7 @@ program lab7;
    end; 
  end; 
   
- procedure WinMain; {Основной цикл обработки сообщений} 
+ procedure WinMain; {РћСЃРЅРѕРІРЅРѕР№ С†РёРєР» РѕР±СЂР°Р±РѕС‚РєРё СЃРѕРѕР±С‰РµРЅРёР№} 
    const szClassName='Controls demo'; 
    var   wndClass:TWndClassEx; 
          msg:TMsg; 
@@ -134,24 +134,24 @@ program lab7;
    RegisterClassEx(wndClass); 
   
    hwnd1:=CreateWindowEx(0, 
-          szClassName, {имя класса окна} 
-          'Заголовок',    {заголовок окна} 
-          ws_overlappedwindow,       {стиль окна} 
+          szClassName, {РёРјСЏ РєР»Р°СЃСЃР° РѕРєРЅР°} 
+          'Р—Р°РіРѕР»РѕРІРѕРє',    {Р·Р°РіРѕР»РѕРІРѕРє РѕРєРЅР°} 
+          ws_overlappedwindow,       {СЃС‚РёР»СЊ РѕРєРЅР°} 
           10,           {Left} 
           10,           {Top} 
           500,                     {Width} 
           300,                     {Height} 
-          0,                       {хэндл родительского окна} 
-          0,                       {хэндл оконного меню} 
-          hInstance,               {хэндл экземпляра приложения} 
-          nil);                    {параметры создания окна} 
+          0,                       {С…СЌРЅРґР» СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РѕРєРЅР°} 
+          0,                       {С…СЌРЅРґР» РѕРєРѕРЅРЅРѕРіРѕ РјРµРЅСЋ} 
+          hInstance,               {С…СЌРЅРґР» СЌРєР·РµРјРїР»СЏСЂР° РїСЂРёР»РѕР¶РµРЅРёСЏ} 
+          nil);                    {РїР°СЂР°РјРµС‚СЂС‹ СЃРѕР·РґР°РЅРёСЏ РѕРєРЅР°} 
   
    ShowWindow(hwnd1,sw_shownormal); 
   
-   while GetMessage(msg,0,0,0) do begin {получить очередное сообщение} 
-       TranslateMessage(msg);   {Windows транслирует сообщения от клавиатуры} 
-       DispatchMessage(msg);    {Windows вызовет оконную процедуру} 
-   end; {выход по wm_quit, на которое GetMessage вернет FALSE} 
+   while GetMessage(msg,0,0,0) do begin {РїРѕР»СѓС‡РёС‚СЊ РѕС‡РµСЂРµРґРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ} 
+       TranslateMessage(msg);   {Windows С‚СЂР°РЅСЃР»РёСЂСѓРµС‚ СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚ РєР»Р°РІРёР°С‚СѓСЂС‹} 
+       DispatchMessage(msg);    {Windows РІС‹Р·РѕРІРµС‚ РѕРєРѕРЅРЅСѓСЋ РїСЂРѕС†РµРґСѓСЂСѓ} 
+   end; {РІС‹С…РѕРґ РїРѕ wm_quit, РЅР° РєРѕС‚РѕСЂРѕРµ GetMessage РІРµСЂРЅРµС‚ FALSE} 
  end; 
   
   
@@ -174,7 +174,7 @@ $H+}
  begin 
    result:=integer(strPos(a,b)); 
    if result>integer(a) then result:=result-integer(a)+1; 
-   s:='Первая строка: "'+a+'"'#13#10'Вторая строка: "'+b+'"'#13#10; 
+   s:='РџРµСЂРІР°СЏ СЃС‚СЂРѕРєР°: "'+a+'"'#13#10'Р’С‚РѕСЂР°СЏ СЃС‚СЂРѕРєР°: "'+b+'"'#13#10; 
    MessageBox(0,pchar(s), 
                'Procedure 2',mb_ok or MB_ICONINFORMATION); 
  end; 
