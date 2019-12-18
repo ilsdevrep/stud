@@ -1,0 +1,34 @@
+
+ab DIALOG 110, 5, 150, 150
+STYLE WS_POPUP
+CAPTION "im1"
+FONT 8, "MS Sans Serif"
+{}
+
+LAB7MENU MENU 
+{
+ POPUP "&Команды"
+ {
+  MENUITEM "&Статическа\377 загрузка", 101
+  MENUITEM "&Динамическа\377 загрузка", 102
+  MENUITEM "&Load LR#6 Dialog", 103
+  MENUITEM SEPARATOR   
+  MENUITEM "&Выход", 104 
+}
+ 
+ POPUP "&Help"
+ {
+  MENUITEM "&About", 105 
+ }
+
+  MENUITEM "&?", 106, Help 
+}
+
+im1 BITMAP a1.bmp
+cur CURSOR red.cur
+tox ICON 1.ico
+
+STRINGTABLE
+{
+1, "LR7 from Team#7"
+}

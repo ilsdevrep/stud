@@ -1,0 +1,22 @@
+
+
+LAB7MENU MENU 
+{
+ POPUP "&Команды"
+ {
+  MENUITEM "&Динамическа\377 загрузка", 102
+  MENUITEM "LAB4", 103
+  MENUITEM "LAB6", 101
+ }
+
+ MENUITEM "&Выход", 104, HELP
+}
+
+TRIANGLE CURSOR cursor1.cur
+
+LAB7 ICON icon1.ico
+
+STRINGTABLE
+{
+1, "Заголовок окна"
+}
