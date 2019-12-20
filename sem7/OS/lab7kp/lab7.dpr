@@ -70,6 +70,10 @@ begin
           begin
             if loword(wParam)=BtnExecute then
              begin
+             SetScrollRange(GetDlgItem(hwnd,ScrollBar1),sb_ctl,0,255,true);
+             SetScrollRange(GetDlgItem(hwnd,ScrollBar2),sb_ctl,0,255,true);
+             SetScrollRange(GetDlgItem(hwnd,ScrollBar3),sb_ctl,0,255,true);
+
                 mov(hWnd,Edit1);
                 mov(hWnd,Edit2);
                 mov(hWnd,Edit3);

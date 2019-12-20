@@ -1,0 +1,85 @@
+Uses dos,rdelay,crt,graph,h314task;
+
+{$S-}
+
+var potok1, potok2, potok3:integer;
+
+procedure potokA;
+  var i:word;
+      k:real;
+      x:integer;
+      ch:char;
+begin
+  x:=0;
+
+  repeat
+      ch:=readkey;
+      if ch=#27 then break;
+
+  until false;
+  StopThread(potok1);
+  StopThread(potok2);
+  StopThread(potok3);
+  LoopBack;
+end;
+
+{procedure potokB;
+  var h,m,s,s100,sold,mold:word;
+begin
+  gettime(h,mold,sold,s100);
+  repeat
+    gettime(h,m,s,s100);
+    IF (m=mold)and((s-sold)>=25)then break
+    else
+      if (m<>mold)and((60-sold+s)>=25)then break;
+  until false;
+  StopThread(potok1);
+  StopThread(potok3);
+  StopThread(potok2);
+  LoopBack;
+end;       }
+
+procedure potokB;
+begin
+  randomize;
+  while true do begin
+    EnterCritical(1);
+    EnterCritical(2);
+    SetColor(red);
+    LineTo(random(getmaxx), random(getmaxy)/2);
+    LeaveCritical(1);
+    LeaveCritical(2);
+  end;
+  LoopBack;
+end;
+
+procedure potokD;
+begin
+  randomize;
+  while true do begin
+    EnterCritical(2);
+    EnterCritical(1);
+    SetColor(random(15));
+    LineTo(random(getmaxx), (random(getmaxy)/2+(getmaxy)/2));
+    LeaveCritical(1);
+    LeaveCritical(2);
+  end;
+  LoopBack;
+end;
+
+{$S+}
+var       gd,gm:integer;
+
+begin
+  gd:=detect;
+  initgraph(gd,gm,'');
+
+  clearThreads;
+  potok1:=RegisterThread(@potokD,8000); {Registered as Thread #1}
+  potok2:=RegisterThread(@potokB,8000); {Registered as Thread #2}
+  potok3:=RegisterThread(@potokA,8000); {Registered as Thread #3}
+
+  ExecuteRegisteredThreads(true);
+
+  closegraph;
+end.
