@@ -1,0 +1,13 @@
+program labor1_3;
+
+uses
+  Forms,
+  U1labor1_3 in 'U1labor1_3.pas' {Formlabor1};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFormlabor1, Formlabor1);
+  Application.Run;
+end.
