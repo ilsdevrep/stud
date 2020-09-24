@@ -1,0 +1,241 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7259,        187]*)
+(*NotebookOutlinePosition[      8117,        217]*)
+(*  CellTagsIndexPosition[      8033,        211]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    RowBox[{\(EllipticAdd[p_, a_, b_, c_, P_List, Q_List]\), ":=", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Module", "[", 
+        RowBox[{\({lam, x3, y3, P3}\), ",", "\n", "    ", 
+          RowBox[{"Which", "[", "\[IndentingNewLine]", 
+            RowBox[{
+              StyleBox[\(P == {O}\),
+                FontColor->RGBColor[0, 0, 1]], ",", 
+              StyleBox["Q",
+                FontFamily->"Courier",
+                FontSize->12,
+                FontWeight->"Bold",
+                FontSlant->"Plain",
+                FontColor->RGBColor[0, 0.500008, 0],
+                FontVariations->{"Underline"->False,
+                "StrikeThrough"->False}], ",", "\[IndentingNewLine]", 
+              StyleBox[\(Q == {O}\),
+                FontColor->RGBColor[0, 0, 1]], ",", 
+              StyleBox["P",
+                FontFamily->"Courier",
+                FontSize->12,
+                FontWeight->"Bold",
+                FontSlant->"Plain",
+                FontColor->RGBColor[0, 0.500008, 0],
+                FontVariations->{"Underline"->False,
+                "StrikeThrough"->False}], ",", "\[IndentingNewLine]", 
+              StyleBox[\(P[\([\)\(1\)\(]\)] != Q[\([\)\(1\)\(]\)]\),
+                FontColor->RGBColor[0, 0, 1]], ",", "\n", "\t\t  ", 
+              
+              RowBox[{\(lam = 
+                  Mod[\((Q[\([\)\(2\)\(]\)] - P[\([\)\(2\)\(]\)])\) 
+                      PowerMod[Q[\([\)\(1\)\(]\)] - P[\([\)\(1\)\(]\)], 
+                        p - 2, p], p]\), ";", "\n", 
+                "\t\t  ", \(x3 = 
+                  Mod[lam\^2 - a - P[\([\)\(1\)\(]\)] - Q[\([\)\(1\)\(]\)], 
+                    p]\), ";", "\n", 
+                "\t\t  ", \(y3 = 
+                  Mod[\(-\((lam \((x3 - P[\([\)\(1\)\(]\)])\) + 
+                          P[\([\)\(2\)\(]\)])\)\), p]\), ";", "\n", "\t\t  ", 
+                
+                StyleBox[\({x3, y3}\),
+                  FontFamily->"Courier",
+                  FontSize->12,
+                  FontWeight->"Bold",
+                  FontSlant->"Plain",
+                  FontColor->RGBColor[0, 0.500008, 0],
+                  FontVariations->{"Underline"->False,
+                  "StrikeThrough"->False}]}], ",", "\[IndentingNewLine]", 
+              StyleBox[\(\((P == Q)\) \[And] \((P[\([\)\(2\)\(]\)] == 0)\)\),
+                FontColor->RGBColor[0, 0, 1]], ",", 
+              StyleBox[\({O}\),
+                FontFamily->"Courier",
+                FontSize->12,
+                FontWeight->"Bold",
+                FontSlant->"Plain",
+                FontColor->RGBColor[0, 0.500008, 0],
+                FontVariations->{"Underline"->False,
+                "StrikeThrough"->False}], 
+              StyleBox[",",
+                FontFamily->"Courier",
+                FontSize->12,
+                FontWeight->"Bold",
+                FontSlant->"Plain",
+                FontColor->RGBColor[0, 0.500008, 0],
+                FontVariations->{"Underline"->False,
+                "StrikeThrough"->False}], "\[IndentingNewLine]", 
+              StyleBox[\(\((P == Q)\) \[And] \((P != {O})\)\),
+                FontColor->RGBColor[0, 0, 1]], ",", "\n", "\t\t ", 
+              
+              RowBox[{\(lam = 
+                  Mod[\ \((3*P[\([\)\(1\)\(]\)]\^2 + 
+                          2  a*P[\([\)\(1\)\(]\)] + b)\) 
+                      PowerMod[2  P[\([\)\(2\)\(]\)], p - 2, p], p]\), ";", 
+                "\[IndentingNewLine]", 
+                "  \t  ", \(x3 = 
+                  Mod[lam\^2 - a - P[\([\)\(1\)\(]\)] - Q[\([\)\(1\)\(]\)], 
+                    p]\), ";", "\n", 
+                "\t\t  ", \(y3 = 
+                  Mod[\(-\((lam \((x3 - P[\([\)\(1\)\(]\)])\) + 
+                          P[\([\)\(2\)\(]\)])\)\), p]\), ";", "\n", "\t\t  ", 
+                
+                StyleBox[\({x3, y3}\),
+                  FontFamily->"Courier",
+                  FontSize->12,
+                  FontWeight->"Bold",
+                  FontSlant->"Plain",
+                  FontColor->RGBColor[0, 0.500008, 0],
+                  FontVariations->{"Underline"->False,
+                  "StrikeThrough"->False}]}], ",", "\[IndentingNewLine]", 
+              StyleBox[\(\((P[\([\)\(1\)\(]\)] == 
+                      Q[\([\)\(1\)\(]\)])\) \[And] \((P[\([\)\(2\)\(]\)] != 
+                      Q[\([\)\(2\)\(]\)])\)\),
+                FontColor->RGBColor[0, 0, 1]], ",", 
+              StyleBox[\({O}\),
+                FontFamily->"Courier",
+                FontSize->12,
+                FontWeight->"Bold",
+                FontSlant->"Plain",
+                FontColor->RGBColor[0, 0.500008, 0],
+                FontVariations->{"Underline"->False,
+                "StrikeThrough"->False}]}], "]"}]}], "]"}]}]], "Input",
+  InitializationCell->True,
+  CellTags->"InputEllip addition"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(p = 11; a = 0; b = 6; c = 3; 
+    EllipticAdd[p, a, b, c, {4, 6}, {9, 4}]\), "\n", 
+    \(EllipticAdd[p, a, b, c, {9, 4}, {9, 4}]\), "\n", 
+    \(EllipticAdd[p, a, b, c, {4, 6}, {4, 6}]\), "\n", 
+    \(EllipticAdd[p, a, b, c, {4, 6}, {O}]\), "\n", 
+    \(EllipticAdd[p, a, b, c, {4, 6}, {4, 5}]\), "\n", 
+    \(EllipticAdd[p, a, b, c, {O}, {9, 4}]\)}], "Input",
+  GeneratedCell->True],
+
+Cell[BoxData[
+    \({3, 9}\)], "Output"],
+
+Cell[BoxData[
+    \({7, 6}\)], "Output"],
+
+Cell[BoxData[
+    \({4, 5}\)], "Output"],
+
+Cell[BoxData[
+    \({4, 6}\)], "Output"],
+
+Cell[BoxData[
+    \({O}\)], "Output"],
+
+Cell[BoxData[
+    \({9, 4}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for Microsoft Windows",
+ScreenRectangle->{{0, 1024}, {0, 685}},
+AutoGeneratedPackage->None,
+WindowSize->{1016, 651},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{
+  "InputEllip addition"->{
+    Cell[1754, 51, 4804, 103, 356, "Input",
+      InitializationCell->True,
+      CellTags->"InputEllip addition"]}
+  }
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{
+  {"InputEllip addition", 7891, 203}
+  }
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 4804, 103, 356, "Input",
+  InitializationCell->True,
+  CellTags->"InputEllip addition"],
+
+Cell[CellGroupData[{
+Cell[6583, 158, 405, 8, 130, "Input"],
+Cell[6991, 168, 40, 1, 29, "Output"],
+Cell[7034, 171, 40, 1, 29, "Output"],
+Cell[7077, 174, 40, 1, 29, "Output"],
+Cell[7120, 177, 40, 1, 29, "Output"],
+Cell[7163, 180, 37, 1, 29, "Output"],
+Cell[7203, 183, 40, 1, 29, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
