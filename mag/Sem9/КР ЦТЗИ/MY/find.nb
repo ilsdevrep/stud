@@ -1,0 +1,232 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9380,        224]
+NotebookOptionsPosition[      8738,        204]
+NotebookOutlinePosition[      9078,        219]
+CellTagsIndexPosition[      9035,        216]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FindPoint", "[", 
+   RowBox[{"p_", ",", "a_", ",", "b_", ",", "c_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"foundFlg", "=", "False"}], "\[IndentingNewLine]", ",", 
+      RowBox[{"k", "=", "0"}], "\[IndentingNewLine]", ",", "x1", 
+      "\[IndentingNewLine]", ",", "solution", "\[IndentingNewLine]", ",", 
+      "p1", ",", "p2", ",", "y1", "\[IndentingNewLine]", ",", "rank"}], "}"}],
+     ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"foundFlg", "\[Equal]", "False"}], ",", " ", 
+       RowBox[{"(*", 
+        RowBox[{
+        "\:041f\:043e\:043a\:0430", " ", "\:043d\:0435", " ", 
+         "\:043d\:0430\:0439\:0434\:0435\:043d\:043e"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Mod", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"4", "*", 
+               RowBox[{"b", "^", "3"}]}], "+", 
+              RowBox[{"27", "*", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"c", "+", "k"}], ")"}], "^", "2"}]}]}], ",", "p"}], 
+            "]"}], "\[NotEqual]", "0"}], ",", " ", 
+          RowBox[{"(*", 
+           RowBox[{
+           "\:0433\:043b\:0430\:0434\:043a\:0430\:044f", " ", 
+            "\:043a\:0440\:0438\:0432\:0430\:044f"}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"x1", "=", "0"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"x1", "<", "p"}], ")"}], "&&", 
+              RowBox[{"(", 
+               RowBox[{"foundFlg", "\[Equal]", "False"}], ")"}]}], ",", " ", 
+             RowBox[{"(*", 
+              RowBox[{
+              "\:043f\:043e\:043a\:0430", " ", "\:043d\:0435", " ", 
+               "\:043d\:0430\:0439\:0434\:0435\:043d\:043e", " ", "\:0438", 
+               " ", "\:043d\:0435", " ", 
+               "\:043f\:0440\:0435\:0432\:044b\:0448\:0430\:0435\:0442", " ", 
+               "P"}], "*)"}], "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"solution", "=", 
+               RowBox[{"Solve", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"y", "^", "2"}], "\[Equal]", 
+                  RowBox[{
+                   RowBox[{"x1", "^", "3"}], "+", 
+                   RowBox[{"a", "*", 
+                    RowBox[{"x1", "^", "2"}]}], "+", 
+                   RowBox[{"b", "*", "x1"}], "+", "c", "+", "k"}]}], ",", 
+                 RowBox[{"{", "y", "}"}], ",", 
+                 RowBox[{"Modulus", "\[Rule]", "p"}]}], "]"}]}], ";", " ", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"solution", "\[NotEqual]", 
+                 RowBox[{"{", "}"}]}], ",", 
+                RowBox[{"(*", 
+                 RowBox[{
+                 "\:0435\:0441\:043b\:0438", " ", "\:043d\:0430", " ", 
+                  "\:043a\:0440\:0438\:0432\:043e\:0439"}], "*)"}], 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"y1", "=", 
+                  RowBox[{"y", "/.", 
+                   RowBox[{"Flatten", "[", "solution", "]"}]}]}], ";", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"p1", "=", 
+                  RowBox[{"{", 
+                   RowBox[{"x1", ",", "y1"}], "}"}]}], ";", 
+                 "\[IndentingNewLine]", 
+                 RowBox[{"p2", "=", "p1"}], ";", "\[IndentingNewLine]", 
+                 RowBox[{"rank", "=", 
+                  RowBox[{"EllipticRank", "[", 
+                   RowBox[{"p", ",", "a", ",", "b", ",", "c", ",", "p2"}], 
+                   "]"}]}], ";", "\[IndentingNewLine]", 
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{"rank", ">", "0"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"PrimeQ", "[", "rank", "]"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Print", "[", 
+                    RowBox[{
+                    "\"\<\:041f\:043e\:0440\:044f\:0434\:043e\:043a \:0442\
+\:043e\:0447\:043a\:0438 \>\"", ",", "p1", ",", "\"\< = \>\"", ",", "rank", 
+                    ",", "\"\< .\:041a\:0440\:0438\:0432\:0430\:044f \
+\!\(\*SuperscriptBox[\(y\), \(2\)]\)\[Equal]\!\(\*SuperscriptBox[\(x\), \
+\(3\)]\)+\>\"", ",", "a", ",", 
+                    "\"\<*\!\(\*SuperscriptBox[\(x\), \(2\)]\)+\>\"", ",", 
+                    "b", ",", "\"\<*x+\>\"", ",", "c", ",", "\"\<+\>\"", ",", 
+                    "k"}], "]"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"foundFlg", "=", "True"}], ";"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"x1", "++"}], ";"}]}], "\[IndentingNewLine]", 
+                    "]"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"x1", "++"}], ";"}]}], "\[IndentingNewLine]", 
+                  "]"}], ";"}], ",", "\[IndentingNewLine]", 
+                RowBox[{"(*", 
+                 RowBox[{
+                 "\:0422\:043e\:0447\:043a\:0430", " ", "\:043d\:0435", " ", 
+                  "\:043f\:0440\:0438\:043d\:0430\:0434\:043b\:0435\:0436\
+\:0438\:0442", " ", 
+                  RowBox[{"\:043a\:0440\:0438\:0432\:043e\:0439", "."}]}], 
+                 "*)"}], "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"x1", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+              ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+         "\[IndentingNewLine]", "]"}], ";", 
+        RowBox[{"k", "++"}], ";"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"FindPoint", "[", 
+  RowBox[{"p", ",", "a", ",", "b", ",", "c"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.814988637807707*^9, 3.8149886380897226`*^9}, {
+   3.814988680196131*^9, 3.814988683646329*^9}, 3.8149887435857573`*^9, {
+   3.814988790107418*^9, 3.814988829724684*^9}, {3.8149891429756007`*^9, 
+   3.814989144777704*^9}, {3.8149891780786085`*^9, 3.8149892073522825`*^9}},
+ CellLabel->"In[38]:=",ExpressionUUID->"71042f69-9e32-4d1c-b9a7-5e90840a350c"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"\:041f\:043e\:0440\:044f\:0434\:043e\:043a \:0442\:043e\:0447\
+\:043a\:0438 \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "4354454"}], "}"}], "\[InvisibleSpace]", "\<\" = \"\>", 
+   "\[InvisibleSpace]", "13645001", 
+   "\[InvisibleSpace]", "\<\" .\:041a\:0440\:0438\:0432\:0430\:044f \
+\\!\\(\\*SuperscriptBox[\\(y\\), \
+\\(2\\)]\\)\[Equal]\\!\\(\\*SuperscriptBox[\\(x\\), \\(3\\)]\\)+\"\>", 
+   "\[InvisibleSpace]", "0", 
+   "\[InvisibleSpace]", "\<\"*\\!\\(\\*SuperscriptBox[\\(x\\), \\(2\\)]\\)+\"\
+\>", "\[InvisibleSpace]", "23", "\[InvisibleSpace]", "\<\"*x+\"\>", 
+   "\[InvisibleSpace]", "66", "\[InvisibleSpace]", "\<\"+\"\>", 
+   "\[InvisibleSpace]", "0"}],
+  SequenceForm[
+  "\:041f\:043e\:0440\:044f\:0434\:043e\:043a \:0442\:043e\:0447\:043a\:0438 \
+", {1, 4354454}, " = ", 13645001, 
+   " .\:041a\:0440\:0438\:0432\:0430\:044f \!\(\*SuperscriptBox[\(y\), \(2\)]\
+\)\[Equal]\!\(\*SuperscriptBox[\(x\), \(3\)]\)+", 0, 
+   "*\!\(\*SuperscriptBox[\(x\), \(2\)]\)+", 23, "*x+", 66, "+", 0],
+  Editable->False]], "Print",
+ CellChangeTimes->{{3.814989215577753*^9, 3.8149892294755487`*^9}, {
+  3.814989291157076*^9, 3.8149893129773245`*^9}},
+ CellLabel->
+  "During evaluation of \
+In[38]:=",ExpressionUUID->"9a01c2b0-2ac2-4c7a-a3d0-b67624f08ad1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.8149893083030567`*^9, 
+  3.8149893105881877`*^9}},ExpressionUUID->"b9daeb35-7246-4a39-99e5-\
+ab41dcbc838b"],
+
+Cell[BoxData["y"], "Output",
+ CellChangeTimes->{3.8149893089230924`*^9},
+ CellLabel->"Out[37]=",ExpressionUUID->"0c85acd0-07c2-4351-bc7b-2385d20532b6"]
+}, Open  ]]
+},
+WindowSize->{944, 982},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 6469, 139, 868, "Input",ExpressionUUID->"71042f69-9e32-4d1c-b9a7-5e90840a350c"],
+Cell[7052, 163, 1323, 26, 24, "Print",ExpressionUUID->"9a01c2b0-2ac2-4c7a-a3d0-b67624f08ad1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8412, 194, 156, 3, 28, "Input",ExpressionUUID->"b9daeb35-7246-4a39-99e5-ab41dcbc838b"],
+Cell[8571, 199, 151, 2, 32, "Output",ExpressionUUID->"0c85acd0-07c2-4351-bc7b-2385d20532b6"]
+}, Open  ]]
+}
+]
+*)
+
